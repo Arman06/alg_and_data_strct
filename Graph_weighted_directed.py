@@ -1,36 +1,29 @@
-import Queue
+from Queue import Queue
 
 
 class Graph:
-    def __init__(self, directed):
+    def __init__(self, directed=False, weighted=False):
         self.graph = {}
         self.directed = directed
+        self.weighted = weighted
 
-    def add_edge(self, first, second, depth=0):
-        if first in self.graph and second not in self.graph[first] and second is not None:
-            self.graph[first].append(second)
-        elif first not in self.graph:
-            self.graph[first] = [second] if second is not None else []
-        depth += 1
+    def add_edge(self, first, second, weight=1):
+        self.graph[first, second] = weight
         if not self.directed:
-            if depth == 1:
-                self.add_edge(second, first, depth)
-        else:
-            if depth == 1:
-                self.add_edge(second, None, depth)
+            self.graph[second, first] = weight
 
     @property
     def nodes(self):
-        return sorted(list(self.graph.keys()))
+        return sorted(list(set([x for pair in self.graph.keys() for x in pair])))
 
     def neighbors(self, node):
-        return sorted(self.graph[node])
+        return sorted([pair[1] for pair in self.graph.keys() if pair[0] == node])
 
     def print(self):
-        for node in sorted(list(self.graph.keys())):
+        for node in self.nodes:
             print("Neighbors of " + node + ":", end=" ")
-            for neighbor in sorted(self.graph[node]):
-                print(neighbor, end=" ")
+            for neighbor in self.neighbors(node):
+                print(neighbor, "", end=" ")
             print()
 
     def dfs(self, node, visited=[]):
@@ -42,7 +35,7 @@ class Graph:
 
     def bfs(self, node):
         visited = [node]
-        queue = Queue.Queue()
+        queue = Queue()
         queue.enqueue(node)
         while queue:
             node_ = queue.dequeue()
@@ -52,6 +45,21 @@ class Graph:
                     visited.append(neighbor)
             print(visited)
 
-    # @property
-    # def adj_matrix(self):
-    #
+    def dijkstra(self, node):
+      pass
+
+
+graph = Graph(directed=True)
+graph.add_edge("A", "B")
+graph.add_edge("A", "C")
+graph.add_edge("B", "D")
+graph.add_edge("B", "E")
+graph.add_edge("E", "F")
+graph.add_edge("C", "F")
+
+print(graph.graph)
+print(graph.nodes)
+print(graph.neighbors('B'))
+graph.print()
+graph.dfs("A")
+graph.bfs("A")

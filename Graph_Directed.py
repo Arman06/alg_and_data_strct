@@ -27,9 +27,9 @@ class Graph:
         return sorted(self.graph[node])
 
     def print(self):
-        for node in sorted(list(self.graph.keys())):
+        for node in self.nodes:
             print("Neighbors of " + node + ":", end=" ")
-            for neighbor in sorted(self.graph[node]):
+            for neighbor in self.neighbors(node):
                 print(neighbor, end=" ")
             print()
 
