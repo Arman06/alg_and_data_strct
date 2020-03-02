@@ -1,5 +1,5 @@
 from Queue import Queue
-
+from MinHeap import Heap as PriorityQueue
 
 class Graph:
     def __init__(self, directed=False, weighted=False):
@@ -19,11 +19,14 @@ class Graph:
     def neighbors(self, node):
         return sorted([pair[1] for pair in self.graph.keys() if pair[0] == node])
 
+    def neighbors_with_weight(self, node):
+        return sorted([(pair[1], self.graph[pair]) for pair in self.graph.keys() if pair[0] == node])
+
     def print(self):
         for node in self.nodes:
             print("Neighbors of " + node + ":", end=" ")
-            for neighbor in self.neighbors(node):
-                print(neighbor, "", end=" ")
+            for neighbor, weight in self.neighbors_with_weight(node):
+                print(neighbor, "with weight %s" % str(weight), end="| ")
             print()
 
     def dfs(self, node, visited=[]):
@@ -46,7 +49,14 @@ class Graph:
             print(visited)
 
     def dijkstra(self, node):
-      pass
+        queue = PriorityQueue()
+        unvisited = self.nodes
+        short_paths = []
+        current_node = unvisited.pop(0)
+        while queue:
+            for node_with_weight in self.neighbors_with_weight(current_node):
+                short_paths.append(node_with_weight)
+
 
 
 graph = Graph(directed=True)
