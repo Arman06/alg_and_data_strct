@@ -112,7 +112,7 @@ if __name__ == "__main__":
 #     # print(heap.contents)
 #     # heap.delete()
 #     # print(heap.contents)
-    heap = Heap([0.15, 0.3, 0.15, 0.4 ])
+    heap = Heap([0.125, 0.125, 0.25, 0.25, 0.125, 0.625, 0.625])
     print(heap.contents)
     heap.delete()
     print(heap.contents)

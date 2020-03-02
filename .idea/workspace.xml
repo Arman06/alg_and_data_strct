@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="62eded00-6074-4f8e-b9c8-7d7df9b27ef5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Huffman.py" beforeDir="false" afterPath="$PROJECT_DIR$/Huffman.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MinHeap.py" beforeDir="false" afterPath="$PROJECT_DIR$/MinHeap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Queue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Queue.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -193,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583170235572</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="huffman improvements tuple">
+      <created>1583170777960</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583170777960</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,6 +220,7 @@
     <MESSAGE value="huffman created" />
     <MESSAGE value="huffman improvements" />
     <MESSAGE value="huffman improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="huffman improvements" />
+    <MESSAGE value="huffman improvements tuple" />
+    <option name="LAST_COMMIT_MESSAGE" value="huffman improvements tuple" />
   </component>
 </project>

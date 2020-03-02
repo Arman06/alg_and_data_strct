@@ -43,8 +43,8 @@ class HuffmanTree:
     def _get_code(self, cur_node, code="", codes_array=[]):
         if cur_node is not None:
             if cur_node.value is not None:
-                print(cur_node.value)
-                print(code)
+                # print(cur_node.value)
+                # print(code)
                 codes_array.append((cur_node.value, code))
             if cur_node.l_child is not None:
                 code += "1"
@@ -61,6 +61,12 @@ class HuffmanTree:
 
 
 huf = HuffmanTree()
-huf.huffman_coding([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)])
+# huf.huffman_coding([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)])
+#
+# huf.huffman_coding([("a_1", 0.25), ("a_2", 0.25), ("a_3", 0.125), ("a_4", 0.125),
+#                     ("a_5", 0.125), ("a_6", 0.0625), ("a_7", 0.0625)])
+huf.huffman_coding([("A", 7), ("G", 3), ("C", 2), ("T", 1)])
+# print(huf.root.frequency)
+# print(huf.root.l_child.l_child.l_child.r_child.l_child.value)
 array_of_codes = huf.get_codes()
 print("array of codes:", array_of_codes)

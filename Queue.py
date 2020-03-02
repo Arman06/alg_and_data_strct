@@ -1,24 +1,32 @@
+class List_New(list):
+    @property
+    def last_index(self):
+        return len(self) - 1
+
+    def __gt__(self, other):
+        return len(self) > other
+
 class Queue:
     def __init__(self):
-        self.content = []
+        self.contents = List_New()
 
     def enqueue(self, item):
-        self.content.append(item)
+        self.contents.append(item)
 
     def dequeue(self):
-        return None if len(self.content) < 1 else self.content.pop(0)
+        return None if len(self.contents) < 1 else self.contents.pop(0)
 
     def size(self):
-        return len(self.content)
+        return len(self.contents)
 
     def __repr__(self):
-        return self.content
+        return self.contents
 
     def __str__(self):
-        return str(self.content)
+        return str(self.contents)
 
     def __bool__(self):
-        return bool(self.content)
+        return bool(self.contents)
 
 
 
