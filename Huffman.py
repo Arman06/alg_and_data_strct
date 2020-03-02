@@ -64,13 +64,15 @@ class HuffmanTree:
             if cur_node.r_child is not None:
                 code += "0"
                 self._get_code(cur_node.r_child, code, codes_array)
-        print(codes_array)
+        # print(codes_array)
+        return codes_array
 
     def get_codes(self):
         if self.root is not None:
-            self._get_code(self.root)
+            return self._get_code(self.root)
+
 
 huf = HuffmanTree()
 huf.huffman_coding([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)])
-# print(huf.root.l_child.r_child.r_child.value)
-huf.get_codes()
+arr = huf.get_codes()
+print("array of codes", arr)
