@@ -29,8 +29,8 @@ class HuffmanTree:
 
     def huffman_coding(self, symbols):
         queue = PriorityQueue()
-        for symbol in symbols:
-            queue.insert(self.Node(value=symbol[0], frequency=symbol[1]))
+        for symbol, frequency in symbols:
+            queue.insert(self.Node(value=symbol, frequency=frequency))
         while queue.contents > 1:
             node1 = queue.delete()
             node2 = queue.delete()
