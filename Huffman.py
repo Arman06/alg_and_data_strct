@@ -28,27 +28,16 @@ class HuffmanTree:
         self.root = None
 
     def huffman_coding(self, symbols):
-        nodes = []
+        queue = PriorityQueue()
         for symbol in symbols:
-            nodes.append(self.Node(value=symbol[0], frequency=symbol[1]))
-        queue = PriorityQueue(nodes)
-        # print(nodes)
+            queue.insert(self.Node(value=symbol[0], frequency=symbol[1]))
         while queue.contents > 1:
-            # print("before deletion")
-            # for node in queue.contents:
-            #     print(node.frequency, end=" ")
-            # print()
             node1 = queue.delete()
             node2 = queue.delete()
-            # print("after deletion")
-            # for node in queue.contents:
-            #     print(node.frequency, end=" ")
-            # print()
             parent_node = self.Node(value=None, frequency=(node1.frequency + node2.frequency),
                                     l_child=node2, r_child=node1)
             queue.insert(parent_node)
         self.root = queue.delete()
-        print("done")
         return self.root
 
     def _get_code(self, cur_node, code="", codes_array=[]):
@@ -64,7 +53,6 @@ class HuffmanTree:
             if cur_node.r_child is not None:
                 code += "0"
                 self._get_code(cur_node.r_child, code, codes_array)
-        # print(codes_array)
         return codes_array
 
     def get_codes(self):
@@ -74,5 +62,5 @@ class HuffmanTree:
 
 huf = HuffmanTree()
 huf.huffman_coding([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)])
-arr = huf.get_codes()
-print("array of codes", arr)
+array_of_codes = huf.get_codes()
+print("array of codes:", array_of_codes)
