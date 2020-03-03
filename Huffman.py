@@ -32,6 +32,9 @@ class HuffmanTree:
         for symbol, frequency in symbols:
             queue.insert(self.Node(value=symbol, frequency=frequency))
         while queue.contents > 1:
+            # for node in queue.contents:
+            #     print(node.value, node.frequency, end=" ")
+            # print()
             node1 = queue.delete()
             node2 = queue.delete()
             parent_node = self.Node(value=None, frequency=(node1.frequency + node2.frequency),
@@ -47,11 +50,11 @@ class HuffmanTree:
                 # print(code)
                 codes_array.append((cur_node.value, code))
             if cur_node.l_child is not None:
-                code += "1"
+                code += "0"
                 self._get_code(cur_node.l_child, code, codes_array)
             code = code[:-1]
             if cur_node.r_child is not None:
-                code += "0"
+                code += "1"
                 self._get_code(cur_node.r_child, code, codes_array)
         return codes_array
 
@@ -67,6 +70,6 @@ huf = HuffmanTree()
 #                     ("a_5", 0.125), ("a_6", 0.0625), ("a_7", 0.0625)])
 huf.huffman_coding([("A", 7), ("G", 3), ("C", 2), ("T", 1)])
 # print(huf.root.frequency)
-# print(huf.root.l_child.l_child.l_child.r_child.l_child.value)
+print(huf.root.r_child.l_child.r_child.value)
 array_of_codes = huf.get_codes()
 print("array of codes:", array_of_codes)
