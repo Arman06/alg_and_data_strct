@@ -170,12 +170,12 @@ source = [("a_1", 0.25), ("a_2", 0.25), ("a_3", 0.125), ("a_4", 0.125),
 # print(huf.entropy([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)]))
 huf.huffman_coding(source)
 
-print("entropy is " + str(huf.entropy([("a_1", 0.25),
+print("entropy is " + str(HuffmanTree.entropy([("a_1", 0.25),
                                    ("a_2", 0.25), ("a_3", 0.125), ("a_4", 0.125),
                                     ("a_5", 0.125), ("a_6", 0.0625), ("a_7", 0.0625)])) + " bits")
 # huf.huffman_coding([("A", 7), ("G", 3), ("C", 2), ("T", 1)])
 # print(huf.root.frequency)
 # print(huf.root.r_child.l_child.r_child.value)
 array_of_codes = huf.get_codes()
-print(huf.average_len(array_of_codes, source))
+print(HuffmanTree.average_len(array_of_codes, source))
 print("array of codes:", array_of_codes)
