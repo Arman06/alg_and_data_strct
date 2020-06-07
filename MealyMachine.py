@@ -5,7 +5,7 @@ class MealyMachine:
             self.transition = transition
             self.output = output
 
-    def __init__(self, states, start_state):
+    def __init__(self, states, start_state, final_state=None):
         self.states = states
         self.start_state = start_state
         self.current_state = None
