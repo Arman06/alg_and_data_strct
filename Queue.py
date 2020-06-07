@@ -6,6 +6,7 @@ class List_New(list):
     def __gt__(self, other):
         return len(self) > other
 
+
 class Queue:
     def __init__(self):
         self.contents = List_New()
@@ -27,7 +28,6 @@ class Queue:
 
     def __bool__(self):
         return bool(self.contents)
-
 
 
 if __name__ == "__main__":

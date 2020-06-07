@@ -1,3 +1,6 @@
+from math import log2
+
+
 class ShannonFano:
     class Node:
         def __init__(self, value=None, frequency=None, l_child=None, r_child=None):
@@ -27,7 +30,6 @@ class ShannonFano:
     def equal_sub_lists(self, li):
         one = []
         two = []
-        print(li)
         if not all(li[i][1] <= li[i + 1][1] for i in range(len(li) - 1)):
             li.sort(key=lambda x: x[1], reverse=True)
         print(li)
@@ -56,7 +58,7 @@ class ShannonFano:
             if len(cur_node.value) == 1:
                 # print(cur_node.value)
                 # print(code)
-                codes_array.append((cur_node.value, code))
+                codes_array.append((cur_node.value[0], code))
             if cur_node.l_child is not None:
                 code += "1"
                 self._get_code(cur_node.l_child, code, codes_array)
@@ -70,10 +72,21 @@ class ShannonFano:
         if self.root is not None:
             return sorted(self._get_code(self.root), key=lambda pair: pair[0])
 
+    @staticmethod
+    def entropy(symbols):
+        return -sum([probability * log2(probability) for symbol, probability in symbols])
+
+    @staticmethod
+    def average_len(codes, symbols):
+        return sum([probability[1] * len(symbol[1]) for symbol, probability in zip(codes, symbols)])
+
 
 source = [("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)]
-source1 = [("d", 0.3), ("b", 0.28), ("a", 0.22), ("c", 0.15), ("e", 0.05)]
+source1 = [("в", 0.25), ("е", 0.25), ("о", 0.125), ("п", 0.125), ("с", 0.125), ("т", 0.0625), ("ь", 0.0625)]
 shannon = ShannonFano()
 shannon.shannon_fano_coding(source1)
 print(shannon.root.r_child.value)
-print(shannon.get_codes())
+codes = shannon.get_codes()
+print(codes)
+print("entropy is ", shannon.entropy(source1))
+print("average length is ", shannon.average_len(codes, source1))

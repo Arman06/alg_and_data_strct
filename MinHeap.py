@@ -8,10 +8,11 @@ class List_New(list):
 
 
 class Heap:
-    def __init__(self, items=[]):
+    def __init__(self, items=[], key=lambda x: x):
         self.contents = List_New()
         for item in items:
             self.contents.append(item)
+            self.key = key
             self.heapify_up()
 
     def __bool__(self):
@@ -40,20 +41,21 @@ class Heap:
         new = self.last
         while new >= 1:
             parent = self.parent(new)
-            if self.contents[new] < self.contents[parent]:
+            if self.key(self.contents[new]) < self.key(self.contents[parent]):
                 self.contents[new], self.contents[parent] = self.contents[parent], self.contents[new]
                 new = parent
             else:
                 return
 
-    def search(self, node):
-        return self.contents.index(node)
+    def search(self, node, key=lambda x: x):
+        # return self.contents.index(key(node))
+        return [i for i in range(len(self.contents)) if key(self.contents[i]) == node][0]
 
     def insert(self, item):
         self.contents.append(item)
         self.heapify_up()
 
-    def delete(self, node=None):
+    def delete(self, node=None, key=lambda x: x):
         if node is None:
             root = self.contents[0]
             self.contents[0], self.contents[self.last] = self.contents[self.last], self.contents[0]
@@ -61,7 +63,7 @@ class Heap:
             self.heapify_down()
             return root
         else:
-            index = self.search(node)
+            index = self.search(node, key=key)
             self.contents[index], self.contents[self.last] = self.contents[self.last], self.contents[index]
             self.contents.pop()
             self.heapify_down(index)
@@ -72,14 +74,14 @@ class Heap:
             left = self.left_child(index)
             right = self.right_child(index)
             if left < len(self.contents) and right < len(self.contents):
-                if self.contents[right] < self.contents[left]:
+                if self.key(self.contents[right]) < self.key(self.contents[left]):
                     min_child_index = right
                 else:
                     min_child_index = left
-                if self.contents[min_child_index] < self.contents[index]:
+                if self.key(self.contents[min_child_index]) < self.key(self.contents[index]):
                     mini = min_child_index
             elif left < len(self.contents):
-                if self.contents[left] < self.contents[index]:
+                if self.key(self.contents[left]) < self.key(self.contents[index]):
                     mini = left
             if index == mini:
                 return
