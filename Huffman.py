@@ -178,7 +178,6 @@ class HuffmanTree:
             distance = node_dist * sqrt((1 + ((2 ** abs(floors) * 13) ** 2)/(5*node_dist**2)))
             # distance = sqrt(42*log2(abs(floors**2))/(0.34*5))
             angle = 180/pi * acos(node_dist/distance)
-            print(distance, angle)
             if cur_node.l_child is not None:
                 pen.setposition(origin)
                 # turtle.pendown()
@@ -211,7 +210,6 @@ class HuffmanTree:
             turtle.Screen().screensize(900, 900)
             print(sqrt(len(alphabet)))
             self._draw(self.root, pen, pen.position(), sqrt(len(alphabet)))
-        print("done")
 
 
 huf = HuffmanTree()
@@ -227,6 +225,8 @@ source = [("а", 0.064), ("б", 0.015), ("в", 0.039), ("г", 0.014),
            ("ц", 0.004), ("ч", 0.013), ("ш", 0.006),  ("щ ", 0.003),
            ("ъ ь", 0.015), ("ы", 0.016),  ("э ", 0.003), ("ю", 0.007), ("я", 0.019), ("-", 0.124)
            ]
+
+source = [("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)]
 
 # huf.huffman_coding([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)])
 # print(huf.entropy([("a_1", 0.4), ("a_2", 0.15), ("a_3", 0.15), ("a_4", 0.15), ("a_5", 0.15)]))
