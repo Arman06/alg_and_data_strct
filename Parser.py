@@ -1,9 +1,9 @@
 class FSM:
 
     class State:
-        def __init__(self, transition, output):
+        def __init__(self, transition, funcs):
             self.transition = transition
-            self.output = output
+            self.funcs = funcs
 
     def __init__(self, states, start_state, final_state=None):
         self.states = states
@@ -17,12 +17,12 @@ class FSM:
         for char in string:
             keyy = None
             print(char)
-            for key in self.current_state.output.keys():
+            for key in self.current_state.funcs.keys():
                 if char in key:
                     print(char, key)
                     keyy = key
                     break
-            out.append(self.current_state.output[keyy])
+            out.append(self.current_state.funcs[keyy])
             self.current_state = self.states[self.current_state.transition[keyy]]
         return out
 
@@ -32,19 +32,21 @@ class ConditionalParser:
     new_group_blueprint = {"vars": "", "op": "", "groups": [], "back": None}
 
     def __init__(self):
-        states = {"start": FSM.State(transition={"(": "new group", "!<>=&|": "operator"},
-                                     output={"(": ["new group"], "!<>=&|": ["new operator"]}),
+        states = {"start": FSM.State(transition={"(": "new group", "!<>=&|": "operator",
+                                                 ")": "start", ConditionalParser._chars: "var"},
+                                     funcs={"(": ["new group"], "!<>=&|": ["new operator"],
+                                             ")": ["end group"], ConditionalParser._chars: ["new var"]}),
                   "new group": FSM.State(transition={"(": "new group", ConditionalParser._chars: "var"},
-                                         output={"(": ["new group"], ConditionalParser._chars: ["new var"]}),
+                                         funcs={"(": ["new group"], ConditionalParser._chars: ["new var"]}),
                   "var": FSM.State(transition={ConditionalParser._chars: "var",
-                                                        ")": "start", "!><=": "operator"},
-                                   output={ConditionalParser._chars: ["add char var"],
-                                                    ")": ["end var", "end group"], "!><=": ["end var",
+                                                        ")": "start", "!><=&|": "operator"},
+                                   funcs={ConditionalParser._chars: ["add char var"],
+                                                    ")": ["end var", "end group"], "!><=&|": ["end var",
                                                                                             "add char operator"]}),
                   "operator": FSM.State(transition={"(": "new group",
                                                     ConditionalParser._chars: "var", "=": "operator"},
-                                        output={"(": ["new group", "end operator"],
-                                                ConditionalParser._chars: ["new var", "end operator"],
+                                        funcs={"(": ["end operator", "new group"],
+                                               ConditionalParser._chars: ["end operator", "new var"],
                                                 "=": ["add char operator"]})
                   }
         self.fsm = FSM(states=states, start_state="start", final_state="start")
@@ -95,7 +97,7 @@ class ConditionalParser:
         tokenized = ConditionalParser.new_group_blueprint.copy()
         for char, funcs in zip(expression, funcs_arr):
             for func in funcs:
-                print(func, char)
+                print("input:", char, "|func:", func)
                 tokenized = func_dict[func](tokenized, char)
                 print(tokenized)
         return tokenized
@@ -103,8 +105,9 @@ class ConditionalParser:
 
 def main():
     parser = ConditionalParser()
-    parsed = parser.parse("(a != b) & (c > a)")
-    print(parsed["groups"])
+    # parsed = parser.parse("(a != b) & (c | d)")
+    print(parser.parse("(destination == MADRID) & (origin == MOSCOW) | (a)"))
+    # print(parsed["groups"])
 
 
 main()

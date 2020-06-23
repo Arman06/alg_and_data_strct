@@ -24,6 +24,10 @@ def main():
               "s2": MealyMachine.State(transition={"0": "s1", "1": "s2"}, output={"0": "1", "1": "1"})}
     test1 = MealyMachine(states=states, start_state="s2")
     print(test1.execute(string="011"))
+    states = {"s1": MealyMachine.State(transition={"0": "s1", "1": "s2"}, output={"0": "0", "1": "0"}),
+              "s2": MealyMachine.State(transition={"0": "s1", "1": "s2"}, output={"0": "1", "1": "1"})}
+    test1 = MealyMachine(states=states, start_state="s2")
+    print(test1.execute(string="011"))
 
 
 main()

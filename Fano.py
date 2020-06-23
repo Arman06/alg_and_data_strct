@@ -27,7 +27,8 @@ class ShannonFano:
     def __init__(self):
         self.root = None
 
-    def equal_sub_lists(self, li):
+    @staticmethod
+    def equal_sub_lists(li):
         li.sort(key=lambda x: x[1], reverse=True)
         one = [li[0]]
         two = li[1:]
@@ -44,7 +45,7 @@ class ShannonFano:
 
     def _shannon_fano_coding(self, cur_node):
         if len(cur_node.value) > 1:
-            left, right = self.equal_sub_lists(cur_node.value)
+            left, right = ShannonFano.equal_sub_lists(cur_node.value)
             cur_node.l_child = self.Node(left)
             cur_node.r_child = self.Node(right)
             self._shannon_fano_coding(cur_node.l_child)
