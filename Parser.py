@@ -106,7 +106,7 @@ class ConditionalParser:
 def main():
     parser = ConditionalParser()
     # parsed = parser.parse("(a != b) & (c | d)")
-    print(parser.parse("(destination == MADRID) & (origin == MOSCOW) | (a)"))
+    print(parser.parse("(c == b) & (a != b)"))
     # print(parsed["groups"])
 
 
